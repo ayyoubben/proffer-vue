@@ -3,7 +3,7 @@ import "regenerator-runtime/runtime"
 
 import axios from "axios"
 
-const baseUrl = "http://localhost:3000"
+const baseUrl = "http://localhost:8081/auth"
 
 // login soumissionnaire
 export const loginSoum = async (email, password) => {

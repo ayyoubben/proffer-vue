@@ -15,7 +15,7 @@
                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar gradient-custom-4" role="progressbar" style="width: 100%"></div>
             </div>
             <div id="qbox-container">
-               <form class="needs-validation" id="form-wrapper" name="form-wrapper" novalidate="">
+               <form class="needs-validation" id="form-wrapper" name="form-wrapper">
                   
                         <div class="row mt-5">
                            <div class="col-lg-7 ">
@@ -25,7 +25,7 @@
                               </div>
                            </div>
                            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-                                 <input ref="numRegistre" @click="handleNumRegistreFile" class="form-control mt-1" type="file" id="RegComFile"/>
+                                 <input ref="numRegistre" @change="handleNumRegistreFile()" class="form-control mt-1" type="file" id="RegComFile"/>
                            </div>
                         </div>
                         <div class="row mt-5">
@@ -36,7 +36,7 @@
                               </div>
                            </div>
                            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-                                 <input ref="classification" @click="handleClassificationFile" class="form-control mt-1" type="file" id="RegComFile"/>
+                                 <input ref="classification" @change="handleClassificationFile()" class="form-control mt-1" type="file" id="RegComFile"/>
                            </div>
                         
                     
@@ -46,7 +46,7 @@
                      <button @click="handlePrevBtn" id="prev-btn" class="gradient-custom-4 mx-2" type="button">Precedent</button> 
                      <!--<button @click="handleNextBtn" id="next-btn" class="gradient-custom-4 mx-2" type="button">Suivant</button> -->
                      <button v-if="!handleValidBtn()"  id="submit-btn"  type="submit" disabled>Valider</button>
-                     <button v-if="handleValidBtn()"  id="submit-btn" class="gradient-custom-4 mx-2" type="submit">Valider</button>
+                     <button @click="handleSubmitBtn" v-if="handleValidBtn()"  id="submit-btn" class="gradient-custom-4 mx-2" type="button">Valider</button>
                   </div>
                </form>
             </div>
@@ -60,6 +60,7 @@
 
 <script>   
     import { mapGetters } from 'vuex'
+    import {createInscVal, updateInscEnr, deleteInscEnr} from '../../../utils/inscription/inscription'
     export default {  
         data() {
             return {
@@ -68,18 +69,6 @@
                 numRegistreFile: {},
                 classificationFile: {},
                 enableBtn: true,
-                total: false
-
-            }
-        },
-        watch: {
-    // whenever question changes, this function will run
-            total() {
-                if ((this.classification != "") && this.numRegistre != "" && this.enableBtn && (this.$store.state.inscDocuments.length == 6)) {
-                    this.total = true
-                } else {
-                    this.total = false
-                }
             }
         },
         computed: {
@@ -108,30 +97,35 @@
             handleClassificationFile() {
                 this.classificationFile = this.$refs.classification.files[0]
                 const vm = this
+                console.log(this.classificationFile)
                 if(this.classificationFile){
                     const reader = new FileReader();
                     reader.onload = function(){
                         const result = reader.result;
                         const file = {}
+                        console.log("here")
                         //console.log(result)
                         file.name = "classification file"
                         file.src = result
                         vm.classificationFile = file
                         
-                        const inserted = false
-                        if (vm.$store.state.inscDocuments != undefined) {
+                        console.log("before")
+                        var inserted = false
+                        if (vm.$store.state.inscDocuments.length > 0) {
+                            console.log("after")
                             vm.$store.state.inscDocuments.forEach(doc => {
                                 if(doc.name === file.name)  {
                                     doc = file
                                     inserted = true
+                                    console.log("not inserted")
                                 }
                             })
                             if (!inserted) {
                                 vm.$store.state.inscDocuments.push(file)
+                                console.log("not inserted")
                         
                             }    
                         } else {
-                            vm.$store.state.inscDocuments = []
                             vm.$store.state.inscDocuments.push(file)
                         }
                         console.log(vm.$store.state.inscDocuments)
@@ -144,29 +138,35 @@
             handleNumRegistreFile() {
                 this.numRegistreFile = this.$refs.numRegistre.files[0]
                 const vm = this
+                console.log(this.numRegistreFile)
                 if(this.numRegistreFile){
                     const reader = new FileReader();
                     reader.onload = function(){
                         const result = reader.result;
                         const file = {}
+                        console.log("here")
                         //console.log(result)
                         file.name = "numRegistre file"
                         file.src = result
                         vm.numRegistreFile = file
                         
-                        const inserted = false
-                        if (vm.$store.state.inscDocuments != undefined) {
+                        console.log("before")
+                        var inserted = false
+                        if (vm.$store.state.inscDocuments.length > 0) {
+                            console.log("after")
                             vm.$store.state.inscDocuments.forEach(doc => {
                                 if(doc.name === file.name)  {
                                     doc = file
                                     inserted = true
+                                    console.log("not inserted")
                                 }
                             })
                             if (!inserted) {
                                 vm.$store.state.inscDocuments.push(file)
-                            }
+                                console.log("not inserted")
+                        
+                            }    
                         } else {
-                            vm.$store.state.inscDocuments = []
                             vm.$store.state.inscDocuments.push(file)
                         }
                         console.log(vm.$store.state.inscDocuments)
@@ -204,12 +204,81 @@
                     documents: this.$store.state.inscDocuments,
                     owner: this.$store.state.user._id
                 }
+                var fd = new FormData()
+                fd.append('nom', inscEnr.nom)
+                fd.append('type', inscEnr.type)
+                fd.append('numRegistre[value]', inscEnr.numRegistre.value)
+                fd.append('classification[value]', inscEnr.classification.value)
+                fd.append('nif[value]', inscEnr.nif.value)
+                fd.append('nis[value]', inscEnr.nis.value)
+                fd.append('casnos[value]', inscEnr.casnos.value)
+                fd.append('cacopath[value]', inscEnr.cacopath.value)
+                //fd.append('owner', this.$store.state.user._id)
+                for (var i=0; i<this.$store.state.inscDocuments.length; i++) fd.append("documents[]", this.$store.state.inscDocuments[i].src);
+                
                 console.log(inscEnr)
+                console.log(fd)
                 //request
-                //this.$router.push("/login")
+                updateInscEnr(localStorage.getItem("inscEnrId"), fd, localStorage.getItem("token")).then(res => {
+                    console.log(res.data)
+                    localStorage.clear()
+                    this.$router.push("/login")
+                })
+            },
+            handleSubmitBtn() {
+                const inscEnr = {
+                    nom: localStorage.getItem("inscNom"),
+                    type: localStorage.getItem("inscType"),
+                    numRegistre: {
+                        value: this.numRegistre,
+                    },
+                    classification: {
+                        value: this.classification,
+                    },
+                    /*codes: {
+                        codes: localStorage.getItem("inscCodes"),
+                    },*/
+                    nif: {
+                        value: localStorage.getItem("inscNif"),
+                    },
+                    nis: {
+                        value: localStorage.getItem("inscNis"),
+                    },
+                    casnos: {
+                        value: localStorage.getItem("inscCasnos"),
+                    },
+                    cacopath: {
+                        value: localStorage.getItem("inscCacopath"),
+                    },
+                    documents: this.$store.state.inscDocuments,
+                    owner: this.$store.state.user._id
+                }
+                var fd = new FormData()
+                fd.append('nom', inscEnr.nom)
+                fd.append('type', inscEnr.type)
+                fd.append('numRegistre[value]', inscEnr.numRegistre.value)
+                fd.append('classification[value]', inscEnr.classification.value)
+                fd.append('nif[value]', inscEnr.nif.value)
+                fd.append('nis[value]', inscEnr.nis.value)
+                fd.append('casnos[value]', inscEnr.casnos.value)
+                fd.append('cacopath[value]', inscEnr.cacopath.value)
+                fd.append('owner', this.$store.state.user._id)
+                for (var i=0; i<this.$store.state.inscDocuments.length; i++) fd.append("documents[]", this.$store.state.inscDocuments[i].src);
+                
+                console.log(inscEnr)
+                console.log(fd)
+                //request
+                createInscVal( fd, localStorage.getItem("token")).then(res => {
+                    const token = localStorage.getItem("token")
+                    deleteInscEnr(localStorage.getItem("inscEnrId"), token)
+                    console.log(res.data)
+                    localStorage.clear()
+                    localStorage.setItem("token", token)
+                    this.$router.push("/")
+                })
             },
             handleValidBtn () {
-                if ((this.classification != "") && this.numRegistre != "" && this.enableBtn && (this.$store.state.inscDocuments.length == 6)) {
+                if ((this.classification != "" && this.classification != null) && (this.numRegistre != "" && this.numRegistre != null) && this.enableBtn && (this.$store.state.inscDocuments.length == 6)) {
                     return true
                 } else {
                     return false
@@ -220,7 +289,7 @@
     
 </script>
 
-<style>
+<style scoped>
 /* TITLE */
  
 #title-container {

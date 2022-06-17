@@ -59,7 +59,7 @@
     
 </script>
 
-<style>
+<style scoped>
 /* TITLE */
  
 #title-container {

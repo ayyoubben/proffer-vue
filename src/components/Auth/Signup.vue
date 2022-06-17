@@ -57,6 +57,8 @@
 <script>
 import {mapGetters} from 'vuex'
 import {createAcc} from '../../utils/soumissionnaire/soumissionnaire'
+//import {createInscEnr, updateInscEnr} from '  ../../utils/inscription/inscription'
+import {createInscEnr} from '../../utils/inscription/inscription'
 export default {
     data() {
     return {
@@ -88,19 +90,29 @@ export default {
                 password: this.password
             }
             createAcc(data).then(res => {
-            this.$store.commit('setUser', res.data.soumissionnaire)
-            console.log(res.data)
-            console.log(this.user)
+              this.$store.commit('setUser', res.data.soumissionnaire)
+              localStorage.setItem("token", res.data.token)
+              console.log(res.data)
+              var fd = new FormData()
+              fd.append('owner', res.data.soumissionnaire._id)
+              createInscEnr(fd, res.data.token).then(res => {
+                    console.log(res.data)
+                    localStorage.setItem("inscEnrId", res.data._id)
+                    //this.$router.push("/login")
+                    this.$router.push("/signup/form1")
+              })
+              console.log(this.user)
+              
             })
         }
-      this.$router.push("/signup/form1")
+      
     }
   }
 
 }
 </script>
 
-<style> 
+<style scoped> 
 .gradient-custom-3 {
     /* fallback for old browsers */
     background: #fac384;

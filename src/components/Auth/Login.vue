@@ -40,6 +40,8 @@
 <script>
 import {mapGetters} from 'vuex'
 import {loginSoum} from '../../utils/soumissionnaire/soumissionnaire'
+import {getInscEnrByOwner, getInscValByOwner} from '../../utils/inscription/inscription'
+
 export default {
     data() {
     return {
@@ -66,6 +68,41 @@ export default {
       loginSoum(this.email, this.password).then(res => {
         this.$store.commit('setUser', res.data.soumissionnaire)
         console.log(res.data)
+        localStorage.setItem("token", res.data.token)
+        getInscValByOwner(res.data.soumissionnaire._id, res.data.token).then(res => {
+          this.$store.commit("setMyInsc", res.data)
+          this.$router.push("/")
+        }).catch(e => {
+          getInscEnrByOwner(res.data.soumissionnaire._id, res.data.token).then(res => {
+              console.log(res.data)
+              localStorage.setItem("inscEnrId", res.data._id)
+              if( res.data.nom != undefined ) {
+                localStorage.setItem("inscNom", res.data.nom)                  
+              }
+              if( res.data.type!= undefined ) {
+                localStorage.setItem("inscType", res.data.type)
+              }
+              if( res.data.casnos != undefined ) {
+                localStorage.setItem("inscCasnos", res.data.casnos.value)          
+              }
+              if( res.data.cacopath!= undefined ) {
+                localStorage.setItem("inscCacopath", res.data.cacopath.value)
+              }
+              if( res.data.nif != undefined ) {
+                localStorage.setItem("inscNif", res.data.nif.value)            
+              }
+              if( res.data.nis!= undefined ) {
+                localStorage.setItem("inscNis", res.data.nis.value)
+              }
+              if( res.data.numRegistre != undefined ) {
+                localStorage.setItem("inscNumRegistre", res.data.numRegistre.value)       
+              }
+              if( res.data.classification != undefined ) {
+                localStorage.setItem("inscClassification", res.data.classification.value)
+              }
+              this.$router.push("/signup/form1")
+          })
+        })
         console.log(this.user)
       })
       
@@ -74,7 +111,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .gradient-custom-3 {
     /* fallback for old browsers */
     background: #FA7D09;

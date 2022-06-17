@@ -12,22 +12,28 @@ export default new Vuex.Store({
   state: {
     user: null,
     inscDocuments: [],
+    dashInscId: null,
+    newOffre: {},
+    newLot: {},
+    myInsc: {},
   },
   mutations: {
     setUser: (state, payload) => state.user = payload, 
-    setInsc: (state, payload) => state.insc = payload,
-    setInscNom: (state, payload) => state.inscNom = payload,
-    setInscType: (state, payload) => state.inscType = payload,
-    setInscDocuments: (state, payload) => state.inscDocuments = payload
+    setMyInsc: (state, payload) => state.myInsc = payload,
+    setInscDocuments: (state, payload) => state.inscDocuments = payload,
+    setDashInscId: (state, payload) => state.dashInscId = payload,
+    setNewOffre: (state, payload) => state.newOffre = payload,
+    setNewLot: (state, payload) => state.newLot = payload,
   },
   actions: {
     
   },
   getters: {
     user: state => state.user,
-    insc: state => state.insc,
-    inscNom: state => state.inscNom,
-    inscType: state => state.inscType,
-    inscDocuments: state => state.inscDocuments
+    myInsc: state => state.insc,
+    inscDocuments: state => state.inscDocuments,
+    dashInscId: state => state.dashInscId,
+    newOffre: state => state.newOffre,
+    newLot: state => state.newLot
   }
 })

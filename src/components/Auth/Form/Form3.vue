@@ -24,7 +24,7 @@
                               </div>
                            </div>
                            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-                                 <input @click="handleNifFile" ref="nif" class="form-control mt-1" type="file" id="NIFFile" required="true"/>
+                                 <input @change="handleNifFile()" ref="nif" class="form-control mt-1" type="file" id="NIFFile" required="true"/>
                            </div>
                         </div>
                         <div class="row mt-5">
@@ -35,7 +35,7 @@
                               </div>
                            </div>
                            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-                                 <input @click="handleNisFile" ref="nis" class="form-control mt-1" type="file" id="NISFile" required="true"/>
+                                 <input @change="handleNisFile()" ref="nis" class="form-control mt-1" type="file" id="NISFile" required="true"/>
                            </div>
                         </div>
                   <div id="q-box__buttons">
@@ -56,6 +56,7 @@
 
 <script>   
     import { mapGetters } from 'vuex'
+    import {createInscEnr, updateInscEnr} from '../../../utils/inscription/inscription'
     export default {  
         data() {
             return {
@@ -96,6 +97,7 @@
             },
             handleNisFile() {
                 this.nisFile = this.$refs.nis.files[0]
+                console.log(this.nisFile)
                 const vm = this
                 if(this.nisFile){
                     const reader = new FileReader();
@@ -103,24 +105,28 @@
                         const result = reader.result;
                         const file = {}
                         //console.log(result)
+                        console.log("here")
                         file.name = "nis file"
                         file.src = result
                         vm.nisFile = file
                         
-                        const inserted = false
-                        if (vm.$store.state.inscDocuments != undefined) {
+                        console.log("before")
+                        var inserted = false
+                        if (vm.$store.state.inscDocuments.length > 0) {
+                            console.log("after")
                             vm.$store.state.inscDocuments.forEach(doc => {
                                 if(doc.name === file.name)  {
                                     doc = file
                                     inserted = true
+                                    console.log("not inserted")
                                 }
                             })
                             if (!inserted) {
                                 vm.$store.state.inscDocuments.push(file)
+                                console.log("not inserted")
                         
                             }    
                         } else {
-                            vm.$store.state.inscDocuments = []
                             vm.$store.state.inscDocuments.push(file)
                         }
                         console.log(vm.$store.state.inscDocuments)
@@ -133,30 +139,35 @@
             handleNifFile() {
                 this.nifFile = this.$refs.nif.files[0]
                 const vm = this
+                console.log(this.nifFile)
                 if(this.nifFile){
                     const reader = new FileReader();
                     reader.onload = function(){
                         const result = reader.result;
                         const file = {}
+                        console.log("here")
                         //console.log(result)
                         file.name = "nif file"
                         file.src = result
                         vm.nifFile = file
                         
-                        const inserted = false
-                        if (vm.$store.state.inscDocuments != undefined) {
+                        console.log("before")
+                        var inserted = false
+                        if (vm.$store.state.inscDocuments.length > 0) {
+                            console.log("after")
                             vm.$store.state.inscDocuments.forEach(doc => {
                                 if(doc.name === file.name)  {
                                     doc = file
                                     inserted = true
+                                    console.log("not inserted")
                                 }
                             })
                             if (!inserted) {
                                 vm.$store.state.inscDocuments.push(file)
+                                console.log("not inserted")
                         
                             }    
                         } else {
-                            vm.$store.state.inscDocuments = []
                             vm.$store.state.inscDocuments.push(file)
                         }
                         console.log(vm.$store.state.inscDocuments)
@@ -197,16 +208,32 @@
                     documents: this.$store.state.inscDocuments,
                     owner: this.$store.state.user._id
                 }
+                var fd = new FormData()
+                fd.append('nom', inscEnr.nom)
+                fd.append('type', inscEnr.type)
+                fd.append('numRegistre[value]', inscEnr.numRegistre.value)
+                fd.append('classification[value]', inscEnr.classification.value)
+                fd.append('nif[value]', inscEnr.nif.value)
+                fd.append('nis[value]', inscEnr.nis.value)
+                fd.append('casnos[value]', inscEnr.casnos.value)
+                fd.append('cacopath[value]', inscEnr.cacopath.value)
+                //fd.append('owner', this.$store.state.user._id)
+                for (var i=0; i<this.$store.state.inscDocuments.length; i++) fd.append("documents[]", this.$store.state.inscDocuments[i].src);
+                
                 console.log(inscEnr)
                 //request
-                //this.$router.push("/login")
+                updateInscEnr(localStorage.getItem("inscEnrId"), fd, localStorage.getItem("token")).then(res => {
+                    console.log(res.data)
+                    localStorage.clear()
+                    this.$router.push("/login")
+                })
             }
         }    
     }
     
 </script>
 
-<style>
+<style scoped>
 /* TITLE */
  
 #title-container {
