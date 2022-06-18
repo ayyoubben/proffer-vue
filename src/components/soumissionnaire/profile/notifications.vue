@@ -22,35 +22,30 @@
                 <div class="container">
                     <div class="main-body">
                     
-                    
+                          <h3>
+                                  Notifications
+                          </h3>
                           <div class="row gutters-sm d-flex justify-content-center">
                             
                             <div class="col-md-8 ">
                               <div class="card mb-3">
+                                
                                 <div class="card-body">
+                                  
+                                  
                                   <div class="row">
                                     <div class="col-sm-3">
-                                      <h6 class="mb-0">Nom</h6>
+                                      <h6 class="mb-0">Classification</h6>
                                     </div>
-                                    <div class="col-sm-9">
-                                      <div class="row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est invalide! veuillez verfier</p>
-                                        <i style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
-                                      </div> 
+                                    <div class="col-sm-9 text-secondary">
+                                      <div class= "row">
+                                        <p class="col-10 mb-0 text-secondary">{{$store.state.myInsc.classification.notification}}</p>
+                                        <i v-if="$store.state.myInsc.classification.valid" style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <i v-if="!$store.state.myInsc.classification.valid" style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
+                                      </div>
                                     </div>
                                   </div>
-                                  <hr>
-                                  <div class="row">
-                                    <div class="col-sm-3">
-                                      <h6 class="mb-0">Type</h6>
-                                    </div>
-                                    <div class="col-sm-9">
-                                      <div class="row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est invalide! veuillez verfier</p>
-                                        <i style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
-                                      </div> 
-                                    </div> 
-                                  </div>
+                                  
                                   <hr>
                                   <div class="row">
                                     <div class="col-sm-3">
@@ -58,32 +53,9 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                       <div class= "row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est valide</p>
-                                        <i style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <hr>
-                                  <div class="row">
-                                    <div class="col-sm-3">
-                                      <h6 class="mb-0">Qualification</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                      <div class= "row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est valide</p>
-                                        <i style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <hr>
-                                  <div class="row">
-                                    <div class="col-sm-3">
-                                      <h6 class="mb-0">Codes</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                      <div class= "row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est valide</p>
-                                        <i style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <p class="col-10 mb-0 text-secondary">{{$store.state.myInsc.numRegistre.notification}}</p>
+                                        <i v-if="$store.state.myInsc.numRegistre.valid" style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <i v-if="!$store.state.myInsc.numRegistre.valid" style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
                                       </div>
                                     </div>
                                   </div>
@@ -94,8 +66,9 @@
                                     </div>
                                     <div class="col-sm-9">
                                       <div class="row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est invalide! veuillez verfier</p>
-                                        <i style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
+                                        <p class="col-10 mb-0 text-secondary">{{$store.state.myInsc.nif.notification}}</p>
+                                        <i v-if="$store.state.myInsc.nif.valid" style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <i v-if="!$store.state.myInsc.nif.valid" style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
                                       </div> 
                                     </div>
                                   </div>
@@ -106,8 +79,9 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                       <div class= "row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est valide</p>
-                                        <i style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <p class="col-10 mb-0 text-secondary">{{$store.state.myInsc.nis.notification}}</p>
+                                        <i v-if="$store.state.myInsc.nis.valid" style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <i v-if="!$store.state.myInsc.nis.valid" style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
                                       </div>
                                     </div>
                                   </div>
@@ -118,8 +92,9 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                       <div class= "row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est valide</p>
-                                        <i style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <p class="col-10 mb-0 text-secondary">{{$store.state.myInsc.casnos.notification}}</p>
+                                        <i v-if="$store.state.myInsc.casnos.valid" style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <i v-if="!$store.state.myInsc.casnos.valid" style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
                                       </div>
                                     </div>
                                   </div>
@@ -130,8 +105,9 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                       <div class= "row">
-                                        <p class="col-10 mb-0 text-secondary">ce champs est valide</p>
-                                        <i style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <p class="col-10 mb-0 text-secondary">{{$store.state.myInsc.cacopath.notification}}</p>
+                                        <i v-if="$store.state.myInsc.cacopath.valid" style="color:#4A3F35" class="fa-solid fa-xl pt-2 fa-circle-check mb-0 col-2"></i>
+                                        <i v-if="!$store.state.myInsc.cacopath.valid" style= "color:#FF4301;" class="fa-solid fa-circle-exclamation fa-xl pt-2 mb-0 col-2"></i>
                                       </div>
                                     </div>
                                     

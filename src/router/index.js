@@ -2,6 +2,8 @@ import VueRouter from 'vue-router'
 import Vue from 'vue'
 
 import store from '../store/index.js'
+import AdminLogin from '../components/Auth/AdminLogin.vue'
+import EvalLogin from '../components/Auth/EvalLogin.vue'
 import Login from '../components/Auth/Login.vue'
 import Signup from '../components/Auth/Signup.vue'
 import Form1 from '../components/Auth/Form/Form1.vue'
@@ -52,6 +54,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/dashboard/login',
+    name: 'AdminLogin',
+    component: AdminLogin
+  },
+  {
+    path: '/evaluateur/login',
+    name: 'EvalLogin',
+    component: EvalLogin
   },
   {
     path: '/signup',

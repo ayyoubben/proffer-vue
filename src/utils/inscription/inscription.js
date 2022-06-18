@@ -87,8 +87,8 @@ export const getInscValsInvalide = async () => {
 
 export const updateInscVal = async (id, updates, token) => {
     const headers = {
-        "Authorization": `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
+        "Authorization": `Bearer ${token}`
+        //'Content-Type': 'multipart/form-data'
     }
     const  data = await axios.patch(baseUrl + '/inscriptions/'+id, updates, {headers: headers})
     return data;

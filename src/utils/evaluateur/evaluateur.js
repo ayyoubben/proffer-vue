@@ -3,7 +3,7 @@ import "regenerator-runtime/runtime"
 
 import axios from "axios"
 
-const baseUrl = "http://localhost:3000"
+const baseUrl = "http://localhost:8081"
 
 //post evaluateur
 export const addEvaluateur = async (data, token) => {
@@ -15,11 +15,8 @@ export const addEvaluateur = async (data, token) => {
 }
 
 //post login
-export const loginEvaluateur = async (data, token) => {
-    const headers = {
-        "Authorization": `Bearer ${token}`
-    }    
-    const formData = await axios.post(baseUrl + '/auth/evaluateurs/login', data, {headers: headers})
+export const loginEvaluateur = async (data) => {
+    const formData = await axios.post(baseUrl + '/auth/evaluateurs/login', data)
     return formData
 }
 

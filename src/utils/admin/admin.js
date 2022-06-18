@@ -4,11 +4,11 @@ import "regenerator-runtime/runtime"
 
 import axios from "axios"
 
-const baseUrl = "http://localhost:3000"
+const baseUrl = "http://localhost:8081"
 
 // login admin
-export const loginAdmin = async (username, password) => {
-    const data = await axios.post(baseUrl + "/dashboard/login", {username, password})
+export const loginAdmin = async (email, password) => {
+    const data = await axios.post(baseUrl + "/auth/admin/login", {email, password})
     return data
 }
 

@@ -28,28 +28,19 @@
                                     <form id="Pinfo">
                                         <div class="mb-3">
                                             <label class="small mb-1" style="margin-right: 100% !important;" for="inputUsername">Nom</label>
-                                            <input class="form-control" id="inputUsername" type="text" placeholder="Entrez votre nom" value="Meddah" disabled="disabled">
+                                            <input v-model="user.lastname" class="form-control" id="inputUsername" type="text" placeholder="Entrez votre nom">
                                         </div>
                                         <div class="mb-3">
                                             <label class="small mb-1" style="margin-right: 100% !important;" for="inputFirstName">Prénom</label>
-                                            <input class="form-control" id="inputFirstName" type="text" placeholder="Entrez votre prenom" value="Hafsa" disabled="disabled">
+                                            <input v-model="user.firstname" class="form-control" id="inputFirstName" type="text" placeholder="Entrez votre prenom" >
                                         </div>
                                         <div class="mb-3">
                                             <label class="small mb-1" style="margin-right: 100% !important;" for="inputEmail">Email</label>
-                                            <input class="form-control" id="inputEmail" type="email" placeholder="Entrez votre adresse Email" value="h.meddah@esi-sba.dz" disabled="disabled">
+                                            <input v-model="user.email" class="form-control" id="inputEmail" type="email" placeholder="Entrez votre adresse Email">
                                         </div>
-                                        <div class="mb-3">
-                                            <label class="small mb-1" style="margin-right: 100% !important;" for="inputAdresse">Adresse</label>
-                                            <input class="form-control" id="inputAdresse" type="text" placeholder="Entrez votre adresse" value="Campus cite 5 (hell) - Sidi Bel Abbès" disabled="disabled">
-                                        </div> 
-                                        <div class="mb-3">
-                                            <label class=" col-md-6 mb-1" style="margin-right: 100% !important;" for="inputNum">N° de Téléphone</label>
-                                            <input class="form-control" id="inputNum" type="tel" placeholder="Entrez votre Numero de Telephone" value="555-123-4567" disabled="disabled">
-                                        </div>
+                                        
                                     </form>
-                                    <button class="btn color-custom-1" id="btn1" type="button" onclick="enable_disable()">Modifier</button>  
-                                    <button class="btn d-none" id="btnUndo" type="button" style="color:gray !important; border-color: darkgrey;" onclick="enable_disable()">Annuler</button> 
-                                    <button class="btn d-none color-custom-1 " id="btnSave" type="button">Enregistrer</button>  
+                                    <button @click="handleUpdateUser" class="btn color-custom-1" id="btn1" type="button" v-if="handleUser()">Modifier</button>   
                                 </div>          
                             </div>
                         </div>
@@ -64,13 +55,13 @@
                                             <!-- Form Group (name)-->
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="inputName">Nom</label>
-                                                <input class="form-control" id="inputName" type="text" placeholder="Entez le nom de votre entreprise" value="ESi" disabled="disabled">
+                                                <input v-model="insc.nom" class="form-control" id="inputName" type="text" placeholder="Entez le nom de votre entreprise"  >
                                                 
                                             </div>
                                             <!-- Form Group (type)-->
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="inputType">Type</label>
-                                                <input class="form-control" id="inputType" type="text" placeholder="Entez le type d'entreprise" value="Emotional torture" disabled="disabled">
+                                                <input v-model="insc.type" class="form-control" id="inputType" type="text" placeholder="Entez le type d'entreprise"  >
                                             </div>
                                         </div>
                                         <!-- Form Row        -->
@@ -79,39 +70,28 @@
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="inputOrgName">N° de registre</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text" class="form-control" id="inputOrgName" placeholder="Entrez votre N° de registre" aria-label="Entrez votre N° de registre" aria-describedby="basic-addon2" value="700000023" disabled="disabled">
-                                                    <div class="input-group-append">
-                                                    <button class="btn color-custom-2 btn-sm" style="height:48px; width:48px" type="button"  data-bs-toggle="modal" data-bs-target="#registreModal"><img src="view.png" style="height:23px; width:22px; position:center"/></button>
-    
-                                                    </div>
+                                                    <input v-model="insc.numRegistre.value" type="text" class="form-control" id="inputOrgName" placeholder="Entrez votre N° de registre" aria-label="Entrez votre N° de registre" aria-describedby="basic-addon2" >
+                                                    
                                                 </div>
                                             </div>
                                             <!-- Form Group (qualification)-->
                                             <div class="col-md-6">
-                                                <label class="small mb-1" for="inputQualification">Qualification</label>
+                                                <label class="small mb-1" for="inputQualification">Classification</label>
                                                 <div class="input-group mb-3">
-                                                    <input  class="form-control" id="inputQualification" type="text" placeholder="Entez votre Qualification" value="idk make up sth" aria-label="Entez votre Qualification" aria-describedby="basic-addon2" disabled="disabled">
-                                                    <div class="input-group-append">
-                                                    <button class="btn color-custom-2 btn-sm" style="height:48px; width:48px" type="button" data-bs-toggle="modal" data-bs-target="#qualificationModal"><img src="view.png" style="height:23px; width:22px; position:center"/></button>
-                                                    </div>
+                                                    <input v-model="insc.classification.value" class="form-control" id="inputQualification" type="text" placeholder="Entez votre Classification" aria-label="Entez votre Qualification" aria-describedby="basic-addon2" >
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Form Group (codes)-->
-                                        <div class="mb-3">
-                                            <label class="small mb-1" for="inputCodes">Codes</label>
-                                            <input class="form-control" id="inputCodes" type="text" placeholder="Entez vos codes" value="Code1, Code2, Code3 ..." disabled="disabled">
-                                        </div>
                                         <!-- Form Row-->
                                         <div class="row gx-3 mb-3">
                                             <!-- Form Group (nif)-->
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="inputNIF">NIF</label>
                                                 <div class="input-group mb-3">
-                                                    <input  class="form-control" id="inputNIF" type="text" placeholder="Entez votre numero d'identification Fiscal" value="idk sum number" aria-label="Entez votre numero d'identification Fiscal" aria-describedby="basic-addon2" disabled="disabled">
-                                                    <div class="input-group-append">
-                                                    <button class="btn color-custom-2 btn-sm" style="height:48px; width:48px" type="button" data-bs-toggle="modal" data-bs-target="#nifModal"><img src="view.png" style="height:23px; width:22px; position:center"/></button>
-                                                    </div>
+                                                    <input v-model="insc.nif.value" class="form-control" id="inputNIF" type="text" placeholder="Entez votre numero d'identification Fiscal" aria-label="Entez votre numero d'identification Fiscal" aria-describedby="basic-addon2" >
+                                                    
                                                 </div>
                                             
                                             </div>
@@ -120,10 +100,8 @@
                                                 <label class="small mb-1" for="inputNIS">NIS</label>
                                                 
                                                 <div class="input-group mb-3">
-                                                    <input  class="form-control" id="inputNIS" type="text" placeholder="Entez votre numero d'identification statique" value="idk sum other numberr" aria-label="Entez votre numero d'identification Statique" aria-describedby="basic-addon2" disabled="disabled">
-                                                    <div class="input-group-append">
-                                                    <button class="btn color-custom-2 btn-sm" style="height:48px; width:48px" type="button" data-bs-toggle="modal" data-bs-target="#nisModal"><img src="view.png" style="height:23px; width:22px; position:center"/></button>
-                                                    </div>
+                                                    <input v-model="insc.nis.value" class="form-control" id="inputNIS" type="text" placeholder="Entez votre numero d'identification statique" aria-label="Entez votre numero d'identification Statique" aria-describedby="basic-addon2" >
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -133,25 +111,21 @@
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="inputCASNOS">CASNOS</label>
                                                 <div class="input-group mb-3">
-                                                    <input  class="form-control" id="inputCASNOS" type="text" placeholder="Entez votre numero de CASNOS" value="yet another number" aria-label="Entez votre numero de CASNOS" aria-describedby="basic-addon2" disabled="disabled">  
-                                                    <div class="input-group-append">
-                                                    <button class="btn color-custom-2 btn-sm" style="height:48px; width:48px" type="button" data-bs-toggle="modal" data-bs-target="#casnosModal"><img src="view.png" style="height:23px; width:22px; position:center"/></button>
-                                                    </div>
+                                                    <input v-model="insc.casnos.value" class="form-control" id="inputCASNOS" type="text" placeholder="Entez votre numero de CASNOS" aria-label="Entez votre numero de CASNOS" aria-describedby="basic-addon2" >  
+                                                    
                                                 </div>
                                             </div>
                                             <!-- Form Group (cacopath)-->
                                             <div class="col-md-6">
                                                 <label class="small mb-1" for="inputCACOPATH">CACOPATH</label>
                                                 <div class="input-group mb-3">
-                                                    <input class="form-control" id="inputCACOPATH" type="text" placeholder="Entez votre numero de CACOPATH" value="you guessed it, Yet another number" aria-label="Entez votre numero de CACOPATH" aria-describedby="basic-addon2" disabled="disabled">
-                                                    <div class="input-group-append">
-                                                    <button class="btn color-custom-2 btn-sm" style="height:48px; width:48px" type="button" data-bs-toggle="modal" data-bs-target="#cacopathModal"><img src="view.png" style="height:23px; width:22px; position:center"/></button>
-                                                    </div>
+                                                    <input v-model="insc.cacopath.value" class="form-control" id="inputCACOPATH" type="text" placeholder="Entez votre numero de CACOPATH" aria-label="Entez votre numero de CACOPATH" aria-describedby="basic-addon2" >
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- edit btn-->
-                                        <button class="btn color-custom-2" type="button"  >Modifier</button>
+                                        <button v-if="handleInsc()" @click="handleUpdateInsc" class="btn color-custom-2" type="button"  >Modifier</button>
                                     </form>
                                 </div>
                             </div>
@@ -163,11 +137,66 @@
 </template>
 
 <script>
+import {updateSoumAcc} from '../../../utils/soumissionnaire/soumissionnaire'
+import {updateInscVal} from '../../../utils/inscription/inscription'
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  data() {
+    return {
+        user: {},
+        insc: {}
+    }
+  },
+  created() {
+    this.user = this.$store.state.user
+    this.insc = this.$store.state.myInsc
+    console.log(this.user)
+    console.log(this.insc)
+  },
+  methods: {
+    handleUser() {
+        return (this.user.firstname != "" && this.user.lastname != "" && this.user.email != "" )
+    },
+    handleInsc() {
+        return (this.insc.nom != "" && this.insc.type != "" && this.insc.numRegistre.value != "" && this.insc.classification.value != "" && this.insc.nif.value != "" && this.insc.nis.value != "" && this.insc.casnos.value != "" && this.insc.cacopath.value != "" )
+    },
+    handleUpdateUser() {
+        const data = {
+            firstname: this.user.firstname,
+            lastname: this.user.lastname,
+            email: this.user.email
+        }
+        updateSoumAcc(this.$store.state.user._id, data, localStorage.getItem("token")).then(res => {
+            this.$store.commit('setUser', res.data)
+        })
+    },
+    handleUpdateInsc() {
+        const data = {
+            nom: this.insc.nom,
+            type: this.insc.type, 
+            numRegistre: {
+                value: this.insc.numRegistre.value
+            },
+            classification: { 
+                value: this.insc.classification.value
+            },
+            nif: { 
+                value: this.insc.nif.value 
+            },
+            nis: { 
+                value: this.insc.nis.value
+            },
+            casnos: {
+                value: this.insc.casnos.value
+            }, 
+            cacopath: { 
+                value: this.insc.cacopath.value
+            }
+        }
+        updateInscVal(this.$store.state.myInsc._id, data, localStorage.getItem("token")).then(res => {
+            this.$store.commit('setMyInsc', res.data)
+        })
+    }
+  },
 }
 </script>
 
