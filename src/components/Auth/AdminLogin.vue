@@ -47,7 +47,8 @@ export default {
       password: ""
     };
   },
-  computed: {
+  created() {
+    if(localStorage.getItem("adminToken")) this.$router.push("/dashboard/offres")  
   },
   methods: {
     handleLoginUser() {

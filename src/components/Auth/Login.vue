@@ -52,6 +52,9 @@ export default {
   computed: {
         ...mapGetters(['user'])
   },
+  created() {
+    if(localStorage.getItem("token")) this.$router.push("/")  
+  },
   watch: {
     /*user(value) {
         //if user value changes from null to object, redirect to home page

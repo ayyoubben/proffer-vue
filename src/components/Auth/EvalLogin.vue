@@ -46,8 +46,8 @@ export default {
       email: "",
       password: ""
     };
-  },
-  computed: {
+  },created() {
+    if(localStorage.getItem("evalToken")) this.$router.push("/evaluateur")  
   },
   methods: {
     handleLoginUser() {

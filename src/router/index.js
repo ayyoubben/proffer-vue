@@ -73,157 +73,374 @@ const routes = [
   {
     path: '/signup/form1',
     name: 'Form1',
-    component: Form1
+    component: Form1,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
   {
     path: '/signup/form2',
     name: 'Form2',
-    component: Form2
+    component: Form2,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
   {
     path: '/signup/form3',
     name: 'Form3',
-    component: Form3
+    component: Form3,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
   {
     path: '/signup/form4',
     name: 'Form4',
-    component: Form4
+    component: Form4,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
   {
     path: '/signup/form5',
     name: 'Form5',
-    component: Form5
+    component: Form5,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
    {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
    },
    {
     path: "/profile",
     name: "Profile",
-    component: Profile
+    component: Profile,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
    },
    {
     path: "/offre/lots/soumissionner",
     name: "Soumissionner",
-    component: Soumissionner
+    component: Soumissionner,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
    },
    {
     path: "/offre/lots",
     name: "SoumLots",
-    component: SoumLots
+    component: SoumLots,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
    },
    {
     path: "/securite",
     name: "Securite",
-    component: Securite
+    component: Securite,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
    },
    {
     path: "/notifications",
     name: "Notifications",
-    component: Notifications
+    component: Notifications,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
    },
    {
     path: "/contact",
     name: "Contact",
-    component: Contact
+    component: Contact,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
    },
    {
     path: '/messoumissions/offre/lot/soumissions',
     name: 'ListesSoum',
-    component: ListesSoum
+    component: ListesSoum,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
   {
     path: '/messoumissions/soumission',
     name: 'Soum',
-    component: Soum
+    component: Soum,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
   {
     path: '/messoumissions/offre',
     name: 'SoumissionLots',
-    component: SoumissionLots
+    component: SoumissionLots,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
   {
     path: '/messoumissions',
     name: 'SoumOff',
-    component: SoumOff
+    component: SoumOff,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("token")) {
+          next()
+      } else {
+          next('/login')
+      }
+    }
   },
   {
     path: '/dashboard/inscriptions',
     name: 'Inscription',
-    component: Inscription
+    component: Inscription,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
   },
   {
     path: '/dashboard/inscriptions/validation',
     name: 'InscValidation',
-    component: InscValidation
+    component: InscValidation,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
   },
   {
     path: '/dashboard/offres/create',
     name: 'CreateOffre',
-    component: CreateOffre
+    component: CreateOffre,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
   },
   {
     path: '/dashboard/offres/lots/create',
     name: 'CreateLot',
-    component: CreateLot
+    component: CreateLot,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
   },
   {
     path: '/dashboard/offres',
     name: 'Offres',
-    component: Offres
+    component: Offres,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
   },
   {
     path: '/dashboard/offres/offre',
     name: 'Offre',
-    component: Offre
+    component: Offre,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
   }, 
   {
     path: "/dashboard/soumissions/offre",
     name: "SoumissionsLots",
-    component: SoumissionsLots
+    component: SoumissionsLots,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
    },
    {
     path: "/dashboard/soumissions/offre/lot",
     name: "SoumissionsListes",
-    component: soumissionsListes
+    component: soumissionsListes,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
    },
   {
     path: "/dashboard/soumissions/soumission",
     name: "Soumission",
-    component: Soumission
+    component: Soumission,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
    },
    {
     path: "/dashboard/soumissions",
     name: "Soumissions",
-    component: Soumissions
+    component: Soumissions,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
    },
   {
     path: '/dashboard/offres/offre/lot',
     name: 'Lot',
-    component: Lot
+    component: Lot,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("adminToken")) {
+          next()
+      } else {
+          next('/dashboard/login')
+      }
+    }
   },
   {
     path: '/evaluateur',
     name: 'Evaluateur',
-    component: Evaluateur
+    component: Evaluateur,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("evalToken")) {
+          next()
+      } else {
+          next('/evaluateur/login')
+      }
+    }
   },
   {
     path: '/evaluateur/evaluation',
     name: 'Evaluation',
-    component: Evaluation
+    component: Evaluation,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("evalToken")) {
+          next()
+      } else {
+          next('/evaluateur/login')
+      }
+    }
   },
   {
     path: '/evaluateur/offre',
     name: 'EvalLots',
-    component: EvalLots
+    component: EvalLots,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("evalToken")) {
+          next()
+      } else {
+          next('/evaluateur/login')
+      }
+    }
   },
   {
     path: '/evaluateur/offre/lot',
     name: 'EvalSoum',
-    component: EvalSoum
+    component: EvalSoum,
+    beforeEnter(to, from, next) {
+      if (localStorage.getItem("evalToken")) {
+          next()
+      } else {
+          next('/evaluateur/login')
+      }
+    }
   }
 ]
 
