@@ -56,7 +56,7 @@ export const getSoumissionsByLot = async (idlot, token) => {
     const headers = {
         "Authorization": `Bearer ${token}`
     }
-    const data = await axios.get(baseUrl+"/soumission/lot/"+ idlot, { headers })
+    const data = await axios.get(baseUrl+"/soumission/lot/"+ idlot + "/", { headers })
     return data
 }
 
@@ -74,7 +74,7 @@ export const getSoumissionByOffreAndSoumissionnaire = async (idsoumissionnaire,i
     const headers = {
         "Authorization": `Bearer ${token}`
     }
-    const data = await axios.get(baseUrl+"/soumission/useroffre/"+ idoffre + "/" +idsoumissionnaire, { headers })
+    const data = await axios.get(baseUrl+"/soumission/useroffre/"+ idoffre + "/" +idsoumissionnaire+"/", { headers })
     return data
 }
 

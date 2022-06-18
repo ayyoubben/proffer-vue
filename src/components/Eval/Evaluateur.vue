@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {getAllOffres} from '../../../utils/offre/offre'
+import {getAllOffres} from '../../utils/offre/offre'
     export default {
         data() {
             return {
@@ -60,13 +60,13 @@ import {getAllOffres} from '../../../utils/offre/offre'
         },
         methods: {
             handleGetOffers() {
-                getAllOffres(localStorage.getItem("adminToken")).then(res => {
+                getAllOffres(localStorage.getItem("evalToken")).then(res => {
                     this.offres = res.data
                 })
             },
             handleGoToOffer(offre) {
               this.$store.commit('setNewOffre', offre)
-              this.$router.push('/dashboard/soumissions/offre')
+              this.$router.push('/evaluateur/offre')
             }
         }
     }

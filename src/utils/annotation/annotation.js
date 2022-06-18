@@ -82,6 +82,6 @@ export const updateEvaluateur = async (id, updates = {}, token) => {
     const headers = {
         "Authorization": `Bearer ${token}`,
     }
-    const  data = await axios.patch(baseUrl + '/annotation/annotations/evaluateur/'+id, updates, {headers: headers})
+    const  data = await axios.patch(baseUrl + '/annotation/annotation/evaluateur/'+id, updates, {headers: headers})
     return data;
 }

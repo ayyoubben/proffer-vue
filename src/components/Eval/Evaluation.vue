@@ -14,20 +14,16 @@
         
         
               <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-    
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 ">
                         <div class="card mb-3">
                             <div class="card-header color-custom-1" >
                             <h1>Soumission</h1>
-
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-4">
-                                    <h6 class="mb-0">Soumissionnaire:</h6>
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Soumissioneur:</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                     {{$store.state.newSoum.soumissionnaireName}}
@@ -72,7 +68,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                 <h6 class="mb-0">Nombre de Materiels</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
@@ -81,7 +77,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                 <h6 class="mb-0">Nombre de Salaires</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
@@ -90,95 +86,35 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-3">
                                 <h6 class="mb-0">Numero de CNAS</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{$store.state.newSoum.nCnas}}
                                 </div>
                             </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5 offset-1">
-                        <div class="card mb-3" >
-                            <div class="card-header color-custom-2" >
-                            <h1>Notes</h1>
-                            </div>
-                            <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                <h6 class="mb-0">Classification</h6>
-                                </div>
-                                <div class="col-sm-6 text-secondary">
-                                {{annot.classification}}
-                                </div>
-                            </div>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                <h6 class="mb-0">Nombre de materiels</h6>
-                                </div>
-                                <div class="col-sm-6 text-secondary">
-                                    {{annot.nb_materiel}}
-                                    </div>
-                            </div>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                <h6 class="mb-0">Nombre de Salaires</h6>
-                                </div>
-                                <div class="col-sm-6 text-secondary">
-                                    {{annot.nb_salaries}}
-                                    </div>
-                            </div>
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                <h6 class="mb-0">Durée</h6>
-                                </div>
-                                <div class="col-sm-6 text-secondary">
-                                {{annot.delai}}
-                                </div>
-                            </div>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-6">
-                                <h6 class="mb-0">Qualité Technique</h6>
+                                <div class="col-sm-4">
+                                <h6 class="mb-0">Extrait de role + cahier des charges</h6>
                                 </div>
-                                <div class="col-sm-6 text-secondary">
-                                    {{annot.qualite_tech}}
-                                </div>
-                            </div>
-                            
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                <h6 class="mb-0">Prix</h6>
-                                </div>
-                                <div class="col-sm-6 text-secondary">
-                                    {{annot.prix}}
-                                </div>
+                                <div class="col-sm-8 text-secondary">
+                                    <button @click="downloadFile($store.state.newSoum)" type="button" class="btn btn-dl col-3" >Telecharger</button>
+                                </div>    
                             </div>
                             <hr>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                <h6 class="mb-0">Total</h6>
+                            <div class= "row mt-2">
+                                <label for="inputEval" class="col-sm-2 col-form-label">Note</label>
+                                <div v-if="annot.state == 'in progress'" class="col-sm-5">
+                                  <input v-model="annot.qualite_tech" type="note d'evaluation" class="form-control align-self-center" id="inputEval" placeholder="Note d'évalutation">
                                 </div>
-                                <div class="col-sm-6 text-secondary">
-                                    {{total}}
+                                <div v-if="annot.state == 'done'" class="col-sm-5">
+                                  <p class="mt-2 pt-0">noté</p>
                                 </div>
+                                <div v-if="annot.state == 'in progress'" class="col-sm-5 text-secondary">
+                                    <button @click="updateAnnot" type="button" class="btn btn-note color-custom-1 col-5" >Confirmer</button>
+                                </div>  
                             </div>
-
-                            <!--div class="row">
-                                <div class="col-sm-12">
-                                <button type="button" class="btn btn-confirm" >Confirmer</button>
-            
-                                </div>
-                            </div-->
                             </div>
                         </div>
                     </div>
@@ -190,24 +126,22 @@
 </template>
 
 <script>
-import {getAnnotationBySoumission, updateEvaluateur} from '../../../utils/annotation/annotation'
+    import router from '../../router'
+import {getAnnotationBySoumission, updateEvaluateur} from '../../utils/annotation/annotation'
     export default {
         data() {
             return {
-                annot: {},
-                total: 0
+                annot: {}
             }
         },
         created() {
             this.getAnnotBySoum()
-            
         },
         methods: {
             getAnnotBySoum() {
-                getAnnotationBySoumission(this.$store.state.newSoum.id, localStorage.getItem("adminToken")).then(res => {
+                getAnnotationBySoumission(this.$store.state.newSoum.id, localStorage.getItem("evalToken")).then(res => {
                     this.annot = res.data
                     console.log(res.data)
-                    this.total = parseInt(res.data.classification) + parseInt(res.data.nb_materiel) + parseInt(res.data.nb_salaries) + parseInt(res.data.qualite_tech) + parseInt(res.data.prix) + parseInt(res.data.delai)
                 })
             },
             downloadFile(file) {
@@ -216,12 +150,11 @@ import {getAnnotationBySoumission, updateEvaluateur} from '../../../utils/annota
                 window.open(newSp, "w0")
                 window.open(newSp1, "w1")
             },
-            /*updateAnnot() {
-                updateEvaluateur(this.annot._id, {qualite_tech: this.annot.qualite_tech}, localStorage.getItem("adminToken")).then(res => {
+            updateAnnot() {
+                updateEvaluateur(this.annot._id, {qualite_tech: this.annot.qualite_tech}, localStorage.getItem("evalToken")).then(res => {
                     //this.$router.push("/evaluateur/offre/lot")
-                    
                 })
-            }*/
+            }
         },
     }
 </script>

@@ -115,6 +115,7 @@ export default {
             fd.append("cahierCharge", this.$refs.cdc.files[0])
             fd.append("extraitRole", this.$refs.edr.files[0])
             fd.append("nCnas", this.$store.state.myInsc.casnos.value)
+            fd.append("soumissionnaireName", this.$store.state.myInsc.nom)
             addSoumission(fd, localStorage.getItem("token")).then(res => {
                 console.log(res.data)
                 var annot = {}

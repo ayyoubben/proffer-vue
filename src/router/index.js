@@ -18,14 +18,25 @@ import Offre from '../components/Dashboard/Offre/Offre.vue'
 import Lot from '../components/Dashboard/Offre/Lot.vue'
 import Soumission from '../components/Dashboard/soumission/soumission.vue'
 import Soumissions from '../components/Dashboard/soumission/soumissions.vue'
+import SoumissionsLots from '../components/Dashboard/soumission/soumissionsLots.vue'
+import soumissionsListes from '../components/Dashboard/soumission/soumissionsListes.vue'
+
 import Home from '../components/soumissionnaire/home.vue'
 import Profile from '../components/soumissionnaire/profile/profile.vue'
-import SoumissionSoum from '../components/soumissionnaire/profile/soumissionSou.vue'
 import Securite from '../components/soumissionnaire/profile/securite.vue'
 import Notifications from '../components/soumissionnaire/profile/notifications.vue'
 import Contact from '../components/soumissionnaire/contact.vue'
 import SoumLots from '../components/soumissionnaire/SoumLots.vue'
 import Soumissionner from '../components/soumissionnaire/Soumissionner'
+import Evaluateur from '../components/Eval/Evaluateur'
+import Evaluation from '../components/Eval/Evaluation'
+import EvalLots from '../components/Eval/EvalLots'
+import EvalSoum from '../components/Eval/EvalSoum'
+
+import ListesSoum from '../components/soumissionnaire/profile/ListesSoum'///messoumissions/offre/lot/soumissions
+import Soum from '../components/soumissionnaire/profile/Soum'///messoumissions/soumission
+import SoumissionLots from '../components/soumissionnaire/profile/SoumissionLots'///messoumissions/offre
+import SoumOff from '../components/soumissionnaire/profile/SoumOff'///messoumissions
 
 
 Vue.use(VueRouter)
@@ -93,11 +104,6 @@ const routes = [
     component: SoumLots
    },
    {
-    path: "/messoumissions",
-    name: "SoumissionSoum",
-    component: SoumissionSoum
-   },
-   {
     path: "/securite",
     name: "Securite",
     component: Securite
@@ -112,6 +118,26 @@ const routes = [
     name: "Contact",
     component: Contact
    },
+   {
+    path: '/messoumissions/offre/lot/soumissions',
+    name: 'ListesSoum',
+    component: ListesSoum
+  },
+  {
+    path: '/messoumissions/soumission',
+    name: 'Soum',
+    component: Soum
+  },
+  {
+    path: '/messoumissions/offre',
+    name: 'SoumissionLots',
+    component: SoumissionLots
+  },
+  {
+    path: '/messoumissions',
+    name: 'SoumOff',
+    component: SoumOff
+  },
   {
     path: '/dashboard/inscriptions',
     name: 'Inscription',
@@ -141,7 +167,17 @@ const routes = [
     path: '/dashboard/offres/offre',
     name: 'Offre',
     component: Offre
-  },
+  }, 
+  {
+    path: "/dashboard/soumissions/offre",
+    name: "SoumissionsLots",
+    component: SoumissionsLots
+   },
+   {
+    path: "/dashboard/soumissions/offre/lot",
+    name: "SoumissionsListes",
+    component: soumissionsListes
+   },
   {
     path: "/dashboard/soumissions/soumission",
     name: "Soumission",
@@ -156,6 +192,26 @@ const routes = [
     path: '/dashboard/offres/offre/lot',
     name: 'Lot',
     component: Lot
+  },
+  {
+    path: '/evaluateur',
+    name: 'Evaluateur',
+    component: Evaluateur
+  },
+  {
+    path: '/evaluateur/evaluation',
+    name: 'Evaluation',
+    component: Evaluation
+  },
+  {
+    path: '/evaluateur/offre',
+    name: 'EvalLots',
+    component: EvalLots
+  },
+  {
+    path: '/evaluateur/offre/lot',
+    name: 'EvalSoum',
+    component: EvalSoum
   }
 ]
 
