@@ -1,20 +1,46 @@
 <template>
-    <div class="container-xl px-4 mt-4">
+    <div class="row flex-nowrap">
+        <div class="col-2 bg-dark brown">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a @click="$router.push('/')" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline"><img class="img-fluid logo" src="../../../assets/logo.png" alt=""></span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a @click="$router.push('/')" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white ">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/profile')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white ">Profile</span> </a>
+        
+                    </li>
+                    <li>
+                        <a @click="$router.push('/notifications')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline text-white ">Notifications</span> </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/contact')" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white ">Contact Us</span></a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a @click="handleLogout" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../../assets/AF_281.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <div class="col-10">
         <!-- Account page navigation-->
         <nav class="nav nav-borders">
-            <a class="navlink nav-link" data-bs-toggle="tab" href="#offres">Home</a>
-            <a class="tab " >
-                <a class=" nav-link tab-toggle " data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false" role="button" id="navbarDropdownMenuLink">Profile</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <ul class="nav " role="tablist">
-                        <li><a class="navlink nav-link" data-bs-toggle="tab" href="#profile">Profile</a></li>
-                        <li><a class="navlink nav-link active" data-bs-toggle="tab" href="#soumissions">Soumissions</a></li>
-                        <li><a class="navlink nav-link" data-bs-toggle="tab" href="#security">Securité</a></li>
-                        <li><a class="navlink nav-link" data-bs-toggle="tab" href="#notifications">Notifications</a></li>
-                    </ul>
-                </div>
-            </a>
-            <a class="navlink nav-link" data-bs-toggle="tab" href="#contact">Contact</a>
+            <a @click="$router.push('/profile')" class="navlink nav-link" data-bs-toggle="tab">Edit</a>
+            <a @click="$router.push('/messoumissions')" class="navlink nav-link active" data-bs-toggle="tab">Mes Soumissions</a>
+            <a @click="$router.push('/securite')" class="navlink nav-link" data-bs-toggle="tab">Securité</a>
             <!--a class="nav-link" href=""  target="__blank">NotifHoications</a-->
         </nav>
         <hr class="mt-0 mb-4">
@@ -62,9 +88,11 @@
                 
             </div>
     </div>
+    </div>
 </template>
 
 <script>
+import {loginSoum, logoutSoum} from '../../../utils/soumissionnaire/soumissionnaire'
 import {getAllOffres} from '../../../utils/offre/offre'
     export default {
         data() {
@@ -76,6 +104,12 @@ import {getAllOffres} from '../../../utils/offre/offre'
           this.handleGetOffers()
         },
         methods: {
+          handleLogout() {
+                logoutSoum(localStorage.getItem("token")).then(res => {
+                    localStorage.removeItem("token")
+                    this.$router.push("/login")
+                })
+            },
             handleGetOffers() {
                 getAllOffres(localStorage.getItem("token")).then(res => {
                     this.offres = res.data

@@ -28,18 +28,20 @@
                 </ul>
                 <hr>
                 <div class="dropdown pb-4">
-                    <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a @click="handleLogout" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../assets/AF_281.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
                         <span class="d-none d-sm-inline mx-1">Logout</span>
                     </a>
                 </div>
             </div>
         </div>
-
         <div class="col-10">
         <!-- Account page navigation-->
-        <hr class="mt-0 mb-4">
-            <div id="offres" class="container tab-pane fade show active">
+        <div class="container mt-5">
+            
+        <h2>Les Offres</h2>
+        <hr class="mb-4">
+            <div id="offres" class="tab-pane fade show active">
                 <div class="container box">
                     <div  class="row">
                         <div v-for="off in offres" class="col-sm-6">
@@ -53,13 +55,14 @@
                     </div>    
                 </div>
             </div>
-              
+        </div>      
         </div>
     </div>
 
 </template>
 
 <script>
+import {loginSoum, logoutSoum} from '../../utils/soumissionnaire/soumissionnaire'
 import {getAllOffres} from '../../utils/offre/offre'
 export default {
   data() {
@@ -71,6 +74,12 @@ export default {
           this.handleGetOffers()
         },
         methods: {
+            handleLogout() {
+                logoutSoum(localStorage.getItem("token")).then(res => {
+                    localStorage.removeItem("token")
+                    this.$router.push("/login")
+                })
+            },
             handleGetOffers() {
                 getAllOffres(localStorage.getItem("token")).then(res => {
                     this.offres = res.data

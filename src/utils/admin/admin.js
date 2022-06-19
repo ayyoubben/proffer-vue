@@ -16,14 +16,11 @@ export const loginAdmin = async (email, password) => {
 export const logoutAdmin = async (token) => {
     try {
         const { data } = await axios.post({
-            url: baseUrl + `/dashboard/logout`,
+            url: baseUrl + `/auth/admin/logout`,
             headers: {
                 "Authorization": `Bearer ${token}`,
             },
-        }).then((data) => {
-            console.log(data)
         })
-        localStorage.removeItem("Auth")
         return data
     } catch (e) {
         console.log(e)

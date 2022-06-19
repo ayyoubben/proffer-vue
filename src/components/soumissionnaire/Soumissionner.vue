@@ -1,4 +1,41 @@
 <template style="background-color: #f5f7fa;">
+   <div class="row flex-nowrap"> 
+    <div class="col-2 bg-dark brown">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a @click="$router.push('/')" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline"><img class="img-fluid logo" src="../../assets/logo.png" alt=""></span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a @click="$router.push('/')" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white ">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/profile')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white ">Profile</span> </a>
+        
+                    </li>
+                    <li>
+                        <a @click="$router.push('/notifications')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline text-white ">Notifications</span> </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/contact')" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white ">Contact Us</span></a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a @click="handleLogout" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../assets/AF_281.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Logout</span>
+                    </a>
+                </div>
+            </div>
+    </div>
+    <div class="col-10">
     <div class="container mt-5">
             <h3>{{$store.state.newLot.name}}</h3>
             <hr>
@@ -76,9 +113,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
+    </div>
+    </div> 
 </template>
 <script>
+import {loginSoum, logoutSoum} from '../../utils/soumissionnaire/soumissionnaire'
 import {addSoumission} from '../../utils/soumission/soumission'
 import {getBarremBylot} from '../../utils/barrem/barrem'
 import {addAnnotation} from '../../utils/annotation/annotation'
@@ -101,6 +141,12 @@ export default {
         //console.log(this.$store.state.myInsc)
     },
     methods:{
+        handleLogout() {
+                logoutSoum(localStorage.getItem("token")).then(res => {
+                    localStorage.removeItem("token")
+                    this.$router.push("/login")
+                })
+            },
         handleSoumission() {
             var fd = new FormData()
             //soumission.idSoumission = bufferObject.message.id

@@ -1,24 +1,59 @@
 <template>
-    <div class="col-xl-12 justify-content-center">
-      <div class="m-2">
-        <a href="#">
-          <div class="d-flex" >
-            <p>Liste des offres</p>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16" style="margin-top: 5px;margin-left:5px">
-                <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
-              </svg>
-          </div>
-        </a>
-      </div>
+    <div class="row flex-nowrap">
+        <div class="col-2 bg-dark brown">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a @click="$router.push('/')" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline"><img class="img-fluid logo" src="../../../assets/logo.png" alt=""></span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a @click="$router.push('/')" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white ">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/profile')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white ">Profile</span> </a>
+        
+                    </li>
+                    <li>
+                        <a @click="$router.push('/notifications')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline text-white ">Notifications</span> </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/contact')" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white ">Contact Us</span></a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a @click="handleLogout" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../../assets/AF_281.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <div class="col-10">
+        <!-- Account page navigation-->
+        <nav class="nav nav-borders">
+            <a @click="$router.push('/profile')" class="navlink nav-link" data-bs-toggle="tab">Edit</a>
+            <a @click="$router.push('/messoumissions')" class="navlink nav-link active" data-bs-toggle="tab">Mes Soumissions</a>
+            <a @click="$router.push('/securite')" class="navlink nav-link" data-bs-toggle="tab">Securité</a>
+            <!--a class="nav-link" href=""  target="__blank">NotifHoications</a-->
+        </nav>
+        <hr class="mt-0 mb-4">
         <!-- add offer-->
         
-        <div class="card mb-4 justify-content-center ">
+        <div class="card m-4 justify-content-center ">
           <div class="card-header" >
-            <h1 style="color: #69707a !important;">{{name}} | Jour J: {{dDay}}</h1>
+            <h1 style="color: #69707a !important;">{{name}}</h1>
           </div>
                
                 <div class="col-md-6">
-                    <p class="small mb-1">Lots:</p>
+                    <h4 class="mt-1 mb-1">Jour J: {{dDay}}</h4>
+                    <p class="mb-1">Lots:</p>
                     <div class="row">
                         <div v-for="l in lots" class="col-xl-3 col-sm-3">
                             <div @click="goToOffre(l)" class="card">
@@ -44,8 +79,10 @@
             
 
     </div>
+    </div>
 </template>
 <script>
+import {loginSoum, logoutSoum} from '../../../utils/soumissionnaire/soumissionnaire'
     import {getLotByIdSorted} from '../../../utils/lot/lot'
     export default {
         data() {
@@ -67,6 +104,12 @@
             }
         },
         methods: {
+          handleLogout() {
+                logoutSoum(localStorage.getItem("token")).then(res => {
+                    localStorage.removeItem("token")
+                    this.$router.push("/login")
+                })
+            },
             handleGetLots() {
                 getLotByIdSorted(this.$store.state.newOffre._id, localStorage.getItem("token")).then(res => this.lots = res.data)
             },

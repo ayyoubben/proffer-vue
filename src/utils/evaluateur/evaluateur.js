@@ -21,11 +21,11 @@ export const loginEvaluateur = async (data) => {
 }
 
 //post logout
-export const logoutEvaluateur = async (data, token) => {
+export const logoutEvaluateur = async (token) => {
     const headers = {
         "Authorization": `Bearer ${token}`
     }    
-    const formData = await axios.post(baseUrl + '/auth/evaluateurs/logout', data, {headers: headers})
+    const formData = await axios.post(baseUrl + '/auth/evaluateurs/logout', {headers: headers})
     return formData
 }
 

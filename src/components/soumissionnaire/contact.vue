@@ -1,37 +1,148 @@
 <template>
-    <div class="container-xl px-4 mt-4">
-        <!-- Account page navigation-->
-        <nav class="nav nav-borders">
-            <a class="navlink nav-link" data-bs-toggle="tab" href="#offres">Home</a>
-            <a class="tab " >
-                <a class=" nav-link tab-toggle " data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false" role="button" id="navbarDropdownMenuLink">Profile</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <ul class="nav " role="tablist">
-                        <li><a class="navlink nav-link" data-bs-toggle="tab" href="#profile">Profile</a></li>
-                        <li><a class="navlink nav-link" data-bs-toggle="tab" href="#soumissions">Soumissions</a></li>
-                        <li><a class="navlink nav-link" data-bs-toggle="tab" href="#security">Securité</a></li>
-                        <li><a class="navlink nav-link" data-bs-toggle="tab" href="#notifications">Notifications</a></li>
+    <div class="row flex-nowrap"> 
+        <div class="col-2 bg-dark brown">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a @click="$router.push('/')" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline"><img class="img-fluid logo" src="../../assets/logo.png" alt=""></span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a @click="$router.push('/')" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white ">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/profile')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white ">Profile</span> </a>
+        
+                    </li>
+                    <li>
+                        <a @click="$router.push('/notifications')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline text-white ">Notifications</span> </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/contact')" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white ">Contact Us</span></a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a @click="handleLogout" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../assets/AF_281.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-10" style="text-align:center;">
+      <div class="container"  style="margin-top: 100px;">
+        <!--Section: Contact v.2-->
+          <section class="mb-4" style="order: 1px solid #c5ccd6; ; border-radius: 0.35rem;box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%); padding: 20px;">
+          
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Contact</h2>
+            
+            <div class="row">
+            
+                <!--Grid column-->
+                <div class="col-md-9 mb-md-0 mb-5">
+                    <form id="contact-form" >
+                    
+                        <!--Grid row-->
+                        <div class="row"  style="margin-top:30px;">
+                        
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Nom et Prénom">
+                                </div>
+                            </div>
+                            <!--Grid column-->
+                          
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="email" name="email" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                            <!--Grid column-->
+                          
+                        </div>
+                        <!--Grid row-->
+                      
+                        <!--Grid row-->
+                        <div class="row"  style="margin-top:30px;">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0" >
+                                    <input type="text" id="subject" name="subject" class="form-control" placeholder="Sujet">
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                      
+                        <!--Grid row-->
+                        <div class="row"  style="margin-top:30px;">
+                        
+                            <!--Grid column-->
+                            <div class="col-md-12 " >
+                            
+                                <div class="md-form">
+                                    <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea" placeholder="Message"></textarea>
+                                </div>
+                              
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                      
+                    </form>
+                  
+                    <div class="text-center text-md-left"  style="margin-top:30px;">
+                        <a class="btn" onclick="document.getElementById('contact-form').submit();" style="background-color:#FA7D09 ; color: white;">Envoyer</a>
+                    </div>
+                    <div class="status"></div>
+                </div>
+                <!--Grid column-->
+              
+                <!--Grid column-->
+                <div class="col-md-3 text-center">
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                            <p>0792171077</p>
+                        </li>
+                      
+                        <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                            <p>k.dadouahadria@esi-sba.dz</p>
+                        </li>
                     </ul>
                 </div>
-            </a>
-            <a class="navlink nav-link active" data-bs-toggle="tab" href="#contact">Contact</a>
-            <!--a class="nav-link" href=""  target="__blank">NotifHoications</a-->
-        </nav>
-        <hr class="mt-0 mb-4">
-        <div id="contact" class="container">
-           <p>nothing yet...</p>
+                <!--Grid column-->
+              
+            </div>
+          
+          </section>
+    <!--Section: Contact v.2-->
+      </div>
         </div>
-
     </div>
 
 </template>
 
 <script>
+import {loginSoum, logoutSoum} from '../../utils/soumissionnaire/soumissionnaire'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  }
+  },
+  methods: {
+    handleLogout() {
+                logoutSoum(localStorage.getItem("token")).then(res => {
+                    localStorage.removeItem("token")
+                    this.$router.push("/login")
+                })
+            },
+  },
 }
 </script>
 

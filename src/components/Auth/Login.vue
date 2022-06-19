@@ -25,7 +25,7 @@
                       <div class="d-flex justify-content-center">
                         <button type="button" class="btn btn-block btn-lg gradient-custom-4" style=" color:white" @click="handleLoginUser">Confirmer</button>
                       </div>   
-                      <p class="text-center text-muted mt-5 mb-0">Vous n'avez pas un compte? <a href="#!" class="fw-bold text-body"><u style="color: #FF4301">Créez un!</u></a></p>  
+                      <p class="text-center text-muted mt-5 mb-0">Vous n'avez pas un compte? <a @click="$router.push('/signup')" class="fw-bold text-body"><u style="color: #FF4301">Créez un!</u></a></p>  
                     </form>
       
                   </div>

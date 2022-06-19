@@ -42,7 +42,7 @@
                         <button @click="handleSignupUser" type="button" class="btn btn-block btn-lg gradient-custom-4" style=" color:white">Confirmer</button>
                       </div>      
 
-                      <p class="text-center text-muted mt-5 mb-0">Vous avez dejà un compte? <a href="#!" class="fw-bold text-body"><u style="color:#FF4301">Se connecter</u></a></p>
+                      <p class="text-center text-muted mt-5 mb-0">Vous avez dejà un compte? <a @click="$router.push('/login')" class="fw-bold text-body"><u style="color:#FF4301">Se connecter</u></a></p>
                     </form>
       
                   </div>

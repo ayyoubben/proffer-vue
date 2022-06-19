@@ -1,6 +1,28 @@
 <template>
-    <div class="container-xl px-4 mt-4">
-        <!-- Account page navigation-->
+    <div class="row flex-nowrap">
+        <div class="col-2 bg-dark brown">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a @click="$router.push('/evaluateur')" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline"><img class="img-fluid logo" src="../../assets/logo.png" alt=""></span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a @click="$router.push('/evaluateur')" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white ">Evaluateur</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a  @click="handleLogout" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../assets/AF_281.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-10"> 
         <div id="offres" class="container">
                 <div class="grey-bg container-fluid">
                     <section id="minimal-statistics">
@@ -44,10 +66,12 @@
                   </div>
                 
             </div>
+        </div>
     </div>
 </template>
 
 <script>
+import {logoutEvaluateur} from '../../utils/evaluateur/evaluateur'
 import {getAllOffres} from '../../utils/offre/offre'
     export default {
         data() {
@@ -59,6 +83,12 @@ import {getAllOffres} from '../../utils/offre/offre'
           this.handleGetOffers()
         },
         methods: {
+          handleLogout() {
+                logoutEvaluateur(localStorage.getItem("evalToken")).then(res => {
+                    localStorage.removeItem("evalToken")
+                    this.$router.push("/evaluateur/login")
+                })
+            },
             handleGetOffers() {
                 getAllOffres(localStorage.getItem("evalToken")).then(res => {
                     this.offres = res.data

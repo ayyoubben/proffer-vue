@@ -1,14 +1,37 @@
 <template>
-    <div class="container-xl px-4 mt-4">
-        <!-- Account page navigation-->
-        <nav class="nav nav-borders">
-            <a class="nav-link" data-bs-toggle="tab">Validations</a>
-            <a class="nav-link active " data-bs-toggle="tab">Offres</a>
-            <a class="nav-link" data-bs-toggle="tab">Soumissions</a>
-            
-            <!--a class="nav-link" href=""  target="__blank">Notifications</a-->
-        </nav>
-        <hr class="mt-0 mb-4">
+    <div class="row flex-nowrap">
+        <div class="col-2 bg-dark brown">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a @click="$router.push('/dashboard/offres')" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline"><img class="img-fluid logo" src="../../../assets/logo.png" alt=""></span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a @click="$router.push('/dashboard/offres')" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white ">Offres</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a @click="$router.push('/dashboard/inscriptions')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline text-white ">Inscriptions</span> </a>
+        
+                    </li>
+                    <li>
+                        <a @click="$router.push('/dashboard/soumissions')" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline text-white ">Soumissions</span> </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../../assets/AF_281.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-10">
             <div id="offres" class="container">
                 <div class="grey-bg container-fluid">
                     <section id="minimal-statistics">
@@ -55,6 +78,7 @@
                   </div>
                 
             </div>
+      </div>
     </div>
 </template>
 
