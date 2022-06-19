@@ -22,11 +22,22 @@ export const loginEvaluateur = async (data) => {
 
 //post logout
 export const logoutEvaluateur = async (token) => {
-    const headers = {
+    /*const headers = {
         "Authorization": `Bearer ${token}`
     }    
     const formData = await axios.post(baseUrl + '/auth/evaluateurs/logout', {headers: headers})
-    return formData
+    return formData*/
+    try {
+        const { data } = await axios.post({
+            url: baseUrl + `/auth/evaluateurs/logout`,
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            },
+        })
+        return data
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 //update password

@@ -24,7 +24,7 @@
                 </ul>
                 <hr>
                 <div class="dropdown pb-4">
-                    <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a @click="handleLogout" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../../assets/AF_281.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
                         <span class="d-none d-sm-inline mx-1">Logout</span>
                     </a>
@@ -70,6 +70,7 @@
     </div>
 </template>
 <script>
+import {logoutAdmin} from '../../../utils/admin/admin'
     import {getLotByIdSorted} from '../../../utils/lot/lot'
     export default {
         data() {
@@ -91,6 +92,12 @@
             }
         },
         methods: {
+          handleLogout() {
+                logoutAdmin(localStorage.getItem("adminToken")).then(res => {
+                    localStorage.removeItem("adminToken")
+                    this.$router.push("/dashboard/login")
+                })
+            },
             handleGetLots() {
                 getLotByIdSorted(this.$store.state.newOffre._id, localStorage.getItem("adminToken")).then(res => this.lots = res.data)
             },
